@@ -1,0 +1,64 @@
+name: Run Appium Tests
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  run-ios-tests:
+    runs-on: macos-11
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_PAT }}
+          repository: Futurepet/WellnessReactNative
+          fetch-depth: 0
+      - name: 'Create env file'
+        run: |
+          touch ./apps/pay-e2e/.env
+          echo CHANNEL_NAME=${GITHUB_HEAD_REF} >> ./apps/pay-e2e/.env
+          echo USE_UPDATE=true >> ./apps/pay-e2e/.env
+          echo ENVIRONMENT=${{ inputs.environment }}
+          cat ./apps/pay-e2e/.env
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: 🏗 Setup Expo
+        uses: expo/expo-github-action@7.2.0
+        with:
+          eas-version: 2.1.0
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: 📦 Install dependencies
+        run: yarn install
+      - run: mkdir -p ./apps/pay-e2e/.tmp/screenshots
+      - name: Test iOS
+        run: APP_ENV=qa npx nx test-ios --environment=${{ inputs.environment }}
+      - name: Upload Appium logs
+        if: always()
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: appium.log
+          path: ./apps/pay-e2e/appium.log
+          retention-days: 1
+      - name: Upload Screenshots
+        if: always()
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: appium.log
+          path: ./apps/pay-e2e/.tmp
+          retention-days: 5
