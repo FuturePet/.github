@@ -16,10 +16,8 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT }}
           repository: Futurepet/WellnessReactNative
-          path: WellnessReactNative
           fetch-depth: 0
       - name: 'Create env file'
-        working-directory: WellnessReactNative
         run: |
           touch ./apps/pay-e2e/.env
           echo CHANNEL_NAME=${GITHUB_HEAD_REF} >> ./apps/pay-e2e/.env
