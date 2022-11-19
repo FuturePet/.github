@@ -24,7 +24,7 @@ jobs:
           echo USE_UPDATE=true >> ./apps/pay-e2e/.env
           echo ENVIRONMENT=${{ inputs.environment }}
           cat ./apps/pay-e2e/.env
-      - run: ls
+      - run: ls -a ./apps/pay-e2e
       - name: 🏗 Setup Node
         uses: actions/setup-node@v3
         with:
