@@ -1,0 +1,15 @@
+name: PR Opened
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  in_development:
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - name: Label PR Development
+        uses: andymckay/labeler@master
+        with:
+          add-labels: 'status:development'

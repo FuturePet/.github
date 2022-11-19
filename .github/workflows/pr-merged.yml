@@ -1,0 +1,17 @@
+name: PR Merged
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  in_preprod:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.merged == true}}
+    environment: staging
+    steps:
+      - name: Label PR Completed
+        uses: andymckay/labeler@master
+        with:
+          add-labels: 'status:completed'
+          remove-labels: 'status:qa, status:review'
