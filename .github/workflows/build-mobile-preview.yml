@@ -35,7 +35,7 @@ jobs:
       - name: Output Affected Projects
         id: affected-projects
         run: |
-          echo projects="$(npx nx print-affected --target=deploy --select=projects)" >> $GITHUB_OUTPUT
+          echo projects="$(npx nx print-affected --select=projects)" >> $GITHUB_OUTPUT
       - name: Build Updates
         run: APP_ENV=qa npx nx affected --target=update --branch=${GITHUB_HEAD_REF} --message=${GITHUB_HEAD_REF}
       - name: 💬 Comment on PR
