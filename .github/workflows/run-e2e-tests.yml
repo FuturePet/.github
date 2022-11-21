@@ -58,6 +58,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v3.1.1
         with:
-          name: appium.log
+          name: appium-screenshots
           path: ./apps/pay-e2e/.tmp
           retention-days: 5
