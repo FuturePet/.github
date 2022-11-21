@@ -23,8 +23,6 @@ jobs:
           echo CHANNEL_NAME=${GITHUB_HEAD_REF} >> .env
           echo ENVIRONMENT=${{ inputs.environment }}
           cat .env
-      - run: ls -a ./apps/pay-e2e
-      - run: env
       - name: 🏗 Setup Node
         uses: actions/setup-node@v3
         with:
