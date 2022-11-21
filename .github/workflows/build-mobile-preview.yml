@@ -1,0 +1,48 @@
+name: Build Mobile App Preview
+
+on:
+  workflow_call:
+
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+    outputs:
+      projects: ${{ steps.affected-projects.outputs.projects }}
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'dependencies') }}
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_PAT }}
+          repository: Futurepet/WellnessReactNative
+          fetch-depth: 0
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version-file: '.nvmrc'
+          cache: yarn
+      - name: 🏗 Setup Expo
+        uses: expo/expo-github-action@7.2.0
+        with:
+          eas-version: 2.1.0
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: 📦 Install dependencies
+        run: yarn install
+      - name: 📦 Get Affected Apps
+        uses: nrwl/nx-set-shas@v3
+        with:
+          main-branch-name: 'master'
+      - name: Output Affected Projects
+        id: affected-projects
+        run: |
+          echo projects="$(npx nx print-affected --target=deploy --select=projects)" >> $GITHUB_OUTPUT
+      - name: Build Updates
+        run: APP_ENV=qa npx nx affected --target=update --branch=${GITHUB_HEAD_REF} --message=${GITHUB_HEAD_REF}
+      - name: 💬 Comment on PR
+        uses: thollander/actions-comment-pull-request@v1.4.1
+        with:
+          message: |
+            :wave: Update Published!
+            Preview this change in the development app, [see how](https://www.notion.so/gofetch/Previewing-Expo-Builds-4bc80cdc41044aac9576ff7e445e79d0).
+            Download the development app from the [Expo Dashboard](https://expo.dev/accounts/gofetch/projects/pay/builds?channel=qa)
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
