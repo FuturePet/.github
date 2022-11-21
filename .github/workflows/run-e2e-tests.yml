@@ -20,7 +20,7 @@ jobs:
       - name: 'Create env file'
         run: |
           touch .env
-          echo CHANNEL_NAME=${GITHUB_HEAD_REF} >> ./apps/pay-e2e/.env
+          echo CHANNEL_NAME=${GITHUB_HEAD_REF} >> .env
           echo ENVIRONMENT=${{ inputs.environment }}
           cat .env
       - run: ls -a ./apps/pay-e2e
