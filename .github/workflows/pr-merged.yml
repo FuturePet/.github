@@ -3,7 +3,6 @@ name: PR Merged
 on:
   workflow_call:
 
-
 jobs:
   in_preprod:
     runs-on: ubuntu-latest

@@ -1,0 +1,13 @@
+name: PR Edited
+
+on:
+  workflow_call:
+
+jobs:
+  in_preprod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure Required Checklists Completed
+        uses: macqueenism/required-task-checker-action@v0.2.1
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"

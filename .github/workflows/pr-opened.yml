@@ -3,7 +3,6 @@ name: PR Opened
 on:
   workflow_call:
 
-
 jobs:
   in_development:
     runs-on: ubuntu-latest
