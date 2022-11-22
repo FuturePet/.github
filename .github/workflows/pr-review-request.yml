@@ -4,15 +4,6 @@ on:
   workflow_call:
 
 jobs:
-  dev_review_requested:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.requested_team.name != 'QA'}}
-    steps:
-      - name: Label PR In Review
-        uses: andymckay/labeler@master
-        with:
-          add-labels: 'status:review'
-          remove-labels: 'status:development'
   qa_review_requested:
     runs-on: ubuntu-latest
     if: ${{ github.event.requested_team.name == 'QA'}}

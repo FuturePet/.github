@@ -1,0 +1,14 @@
+name: PR Ready For Review
+
+on:
+  workflow_call:
+
+jobs:
+  in_development:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label PR In Review
+        uses: andymckay/labeler@master
+        with:
+          add-labels: 'status:review'
+          remove-labels: 'status:development'
