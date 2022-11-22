@@ -1,8 +1,8 @@
 name: In Review
 
 on:
-  pull_request:
-    types: [review_requested]
+  workflow_call:
+
 
 jobs:
   dev_review_requested:

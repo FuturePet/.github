@@ -1,8 +1,8 @@
 name: PR Merged
 
 on:
-  pull_request:
-    types: [closed]
+  workflow_call:
+
 
 jobs:
   in_preprod:
