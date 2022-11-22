@@ -6,9 +6,6 @@ on:
       environment:
         required: true
         type: string
-      apps:
-        required: true
-        type: string
 
 jobs:
   run-ios-tests:
