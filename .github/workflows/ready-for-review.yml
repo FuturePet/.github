@@ -6,6 +6,16 @@ on:
 jobs:
   in_development:
     runs-on: ubuntu-latest
+    environment: development
+    if: github.event.pull_request.draft == true
+    steps:
+      - name: Label PR Development
+        uses: andymckay/labeler@master
+        with:
+          add-labels: 'status:development'
+  request_review:
+    runs-on: ubuntu-latest
+    environment: development
     if: github.event.pull_request.draft == false
     steps:
       - name: Label PR In Review
