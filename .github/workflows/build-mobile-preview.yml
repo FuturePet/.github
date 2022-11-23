@@ -2,6 +2,11 @@ name: Build Mobile App Preview
 
 on:
   workflow_call:
+    inputs:
+      api_url:
+        required: false
+        type: string
+        default: ${{ secrets.QA_API_URL }}
 
 jobs:
   build-preview:
@@ -29,9 +34,9 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
       - name: Build Pay Preview
-        run: APP_ENV=qa npx nx update pay --branch=${GITHUB_HEAD_REF} --message=${GITHUB_HEAD_REF}
+        run: APP_ENV=qa API_URL=${{ inputs.api_url }} npx nx update pay --branch=${GITHUB_HEAD_REF} --message=${GITHUB_HEAD_REF}
       - name: Build Plus Preview
-        run: APP_ENV=qa npx nx update plus --branch=${GITHUB_HEAD_REF} --message=${GITHUB_HEAD_REF}
+        run: APP_ENV=qa API_URL=${{ inputs.api_url }} npx nx update plus --branch=${GITHUB_HEAD_REF} --message=${GITHUB_HEAD_REF}
       - name: 💬 Comment on PR
         uses: marocchino/sticky-pull-request-comment@v2.3.0
         with:
