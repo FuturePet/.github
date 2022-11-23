@@ -6,7 +6,7 @@ on:
 jobs:
   in_development:
     runs-on: ubuntu-latest
-    if: ! github.event.pull_request.draft
+    if: github.event.pull_request.draft == false
     steps:
       - name: Label PR In Review
         uses: andymckay/labeler@master
