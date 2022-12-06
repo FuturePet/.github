@@ -1,0 +1,30 @@
+name: PR Updated
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+
+jobs:
+  auto_assign_qa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login
+        uses: atlassian/gajira-login@v3
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      - name: Find issue in branch
+        continue-on-error: true
+        id: jira
+        uses: atlassian/gajira-find-issue-key@v3
+        with:
+          string: ${{ github.event.ref }}
+      - run: echo ${{ github.event.ref }}
+      - name: Setup Jira
+        uses: atlassian/gajira-cli@v3
+        with:
+          version: 1.0.27
+      - name: Get Issue Type
+        run: jira --issue=GFD
