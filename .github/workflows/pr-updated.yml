@@ -20,11 +20,12 @@ jobs:
         id: jira
         uses: atlassian/gajira-find-issue-key@v3
         with:
-          string: ${{ github.event.ref }}
-      - run: echo ${{ github.event.ref }}
+            from: branch
       - name: Setup Jira
         uses: atlassian/gajira-cli@v3
         with:
           version: 1.0.27
+      - name: Comment
+        run: jira comment --issue=GFD-1404 --comment="GitHub Actions"
       - name: Get Issue Type
         run: jira view GFD-1404
