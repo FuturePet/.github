@@ -26,6 +26,6 @@ jobs:
         with:
           version: 1.0.27
       - name: Comment
-        run: jira comment --issue=GFD-1404 --comment="GitHub Actions"
+        run: jira comment --comment="GitHub Actions" GFD-1404
       - name: Get Issue Type
         run: jira view GFD-1404
