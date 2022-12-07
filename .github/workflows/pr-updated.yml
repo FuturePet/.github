@@ -27,4 +27,4 @@ jobs:
         with:
           version: 1.0.27
       - name: Get Issue Type
-        run: jira view --issue=GFD
+        run: jira view GFD-1404
