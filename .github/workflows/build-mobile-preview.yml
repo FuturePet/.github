@@ -38,12 +38,6 @@ jobs:
       - name: Build Pay Preview
         if: ${{ inputs.api_url == '' }}
         run: APP_ENV=qa npx nx update pay --branch=${GITHUB_HEAD_REF} --message=${GITHUB_HEAD_REF}
-      - name: Build Plus Preview with API_URL
-        if: ${{ inputs.api_url != '' }}
-        run: APP_ENV=qa API_URL=${{ inputs.api_url }} npx nx update plus --branch=${GITHUB_HEAD_REF} --message=${GITHUB_HEAD_REF}
-      - name: Build Plus Preview
-        if: ${{ inputs.api_url == '' }}
-        run: APP_ENV=qa npx nx update plus --branch=${GITHUB_HEAD_REF} --message=${GITHUB_HEAD_REF}
       - name: 💬 Comment on PR
         uses: marocchino/sticky-pull-request-comment@v2.3.0
         with:
