@@ -41,6 +41,7 @@ jobs:
       - name: 💬 Comment on PR
         uses: marocchino/sticky-pull-request-comment@v2.3.0
         with:
+          header: expo-app-published
           message: |
             :wave: Update Published!
             Preview this change in the development app, [see how](https://www.notion.so/gofetch/Previewing-Expo-Builds-4bc80cdc41044aac9576ff7e445e79d0).
