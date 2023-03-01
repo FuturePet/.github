@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.GH_PAT }}
-          repository: Futurepet/WellnessReactNative
+          repository: Futurepet/pasture
           fetch-depth: 0
       - name: 🏗 Setup Node
         uses: actions/setup-node@v2
