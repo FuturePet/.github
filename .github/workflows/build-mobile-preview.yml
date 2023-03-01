@@ -1,4 +1,4 @@
-name: Build Mobile App Preview
+name: Build Expo update for Pay [QA]
 
 on:
   workflow_call:
@@ -32,10 +32,10 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
       - name: 📦 Install dependencies
         run: yarn install
-      - name: Build Pay Preview With API URL
+      - name: Build Pay update with custom API URL
         if: ${{ inputs.api_url != '' }}
         run: APP_ENV=qa API_URL=${{ inputs.api_url }} npx nx update pay --branch=${GITHUB_HEAD_REF} --message=${GITHUB_HEAD_REF}
-      - name: Build Pay Preview
+      - name: Build Pay update for QA
         if: ${{ inputs.api_url == '' }}
         run: APP_ENV=qa npx nx update pay --branch=${GITHUB_HEAD_REF} --message=${GITHUB_HEAD_REF}
       - name: 💬 Comment on PR
