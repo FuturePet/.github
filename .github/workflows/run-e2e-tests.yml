@@ -12,10 +12,10 @@ jobs:
     runs-on: macos-11
     steps:
       - name: 🏗 Setup repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_PAT }}
-          repository: Futurepet/WellnessReactNative
+          repository: Futurepet/pasture
           fetch-depth: 0
       - name: 'Create env file'
         run: |
@@ -28,9 +28,9 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: 🏗 Setup Expo
-        uses: expo/expo-github-action@7.2.0
+        uses: expo/expo-github-action@v8
         with:
-          eas-version: 2.1.0
+          eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
