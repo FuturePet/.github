@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  in_preprod:
+  mark_merged_prs_as_completed:
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.merged == true}}
     environment: staging
