@@ -46,7 +46,7 @@ jobs:
         run: yarn install
       - run: mkdir -p ./apps/pay-e2e/.tmp/screenshots
       - name: Test iOS
-        run: APP_ENV=qa npx nx test-ios pay-e2e --environment=${{ inputs.environment }}
+        run: APP_ENV=demo API_URL=https://roost.demo.gofetch.app/api npx nx test-ios pay-e2e --environment=${{ inputs.environment }}
       - name: Upload Appium logs
         if: always()
         uses: actions/upload-artifact@v3.1.1
